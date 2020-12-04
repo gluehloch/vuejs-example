@@ -2,15 +2,41 @@
     <div>
         <h1>Register yourself as person</h1>
         <h2>Dein Name: <b>{{ viewModel.name }}</b></h2>
+        <p>
+            <select id="selection" v-model="viewModel.selection">
+                <option v-for="v in viewModel.values" :key="v.key">{{ v.name }}</option>
+            </select>
+        </p>
+        <p>
+            Selection: {{ viewModel.selection }}
+        </p>
     </div>
 </template>
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
 
+class Selection {
+    private message: string;
+    constructor(public name: String, public key: String) {
+        this.message = this.toString();
+    }
+
+    toString() {
+        return '(' + this.key + '-' + this.name + ')';
+    }
+}
+
 class ViewModel {
-    name: String;
-    firstName: String;
-    email: String;
+    name: String = '';
+    firstName: String = '';
+    email: String = '';
+
+    selection: Selection = new Selection('Please select one', '0');
+    values = [
+        new Selection('Wert A', 'a'),
+        new Selection('Wert B', 'b'), 
+        new Selection('Wert C', 'c')
+    ];
 }
 
 @Component

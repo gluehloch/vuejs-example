@@ -4,11 +4,11 @@
         <h2>Dein Name: <b>{{ viewModel.name }}</b></h2>
         <p>
             <select id="selection" v-model="viewModel.selection">
-                <option v-for="v in viewModel.values" :key="v.key">{{ v.name }}</option>
+                <option v-for="v in viewModel.values" :key="v.key" :value="v">{{ v.name }} # Msg='{{ v.message }}'</option>
             </select>
         </p>
         <p>
-            Selection: {{ viewModel.selection }}
+            Selection: {{ viewModel.selection.name }}
         </p>
     </div>
 </template>
@@ -16,13 +16,21 @@
 import { Component, Prop, Vue } from "vue-property-decorator";
 
 class Selection {
-    private message: string;
-    constructor(public name: String, public key: String) {
-        this.message = this.toString();
+    private _message: string;
+    constructor(public name: string, public key: string) {
+        this._message = this.toMessage(name, key);
     }
 
-    toString() {
-        return '(' + this.key + '-' + this.name + ')';
+    get message(): string {
+        return this._message;
+    }
+
+    private toMessage(name: string, key: string) {
+        if (key == '0') {
+            return name;
+        } else {
+            return '(' + key + '-' + name + ')';
+        }
     }
 }
 
@@ -48,6 +56,7 @@ export default class Register extends Vue {
     constructor() {
         super();
         console.log('Register::constructor()');
+        console.log(this.viewModel.selection.name, this.viewModel.selection.key);
     }
 
     /*

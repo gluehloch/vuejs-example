@@ -4,7 +4,10 @@
         <h2>Dein Name: <b>{{ viewModel.name }}</b></h2>
         <p>
             <select id="selection" v-model="viewModel.selection">
-                <option v-for="v in viewModel.values" :key="v.key" :value="v">{{ v.name }} # Msg='{{ v.message }}'</option>
+                <option v-for="v in viewModel.values"
+                    :key="v.key"
+                    :disabled="v.key == 0"
+                    :value="v">{{ v.name }} # Msg='{{ v.message }}'</option>
             </select>
         </p>
         <p>
@@ -47,6 +50,7 @@ class ViewModel {
 
     selection: Selection = new Selection('Please select one', '0');
     values = [
+        this.selection,
         new Selection('Wert A', 'a'),
         new Selection('Wert B', 'b'),
         new Selection('Wert C', 'c')

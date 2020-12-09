@@ -13,7 +13,7 @@
     </div>
 </template>
 <script lang="ts">
-import { Component, Prop, Vue } from "vue-property-decorator";
+import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 
 class Selection {
     private _message: string;
@@ -34,6 +34,12 @@ class Selection {
     }
 }
 
+class SelectionModel<T> {
+    constructor(public pleaseSelect: string, public selection: T, public selectables: T[], public selected: Function) {
+    }
+
+}
+
 class ViewModel {
     name: String = '';
     firstName: String = '';
@@ -42,7 +48,7 @@ class ViewModel {
     selection: Selection = new Selection('Please select one', '0');
     values = [
         new Selection('Wert A', 'a'),
-        new Selection('Wert B', 'b'), 
+        new Selection('Wert B', 'b'),
         new Selection('Wert C', 'c')
     ];
 }
@@ -67,9 +73,15 @@ export default class Register extends Vue {
     }
     */
 
+    @Watch("viewModel.selection")
+    watch() {
+        console.log("Selection detected.", this.viewModel.selection);
+    }
+
     mounted() {
         console.log('Register::mounted()');
         this.viewModel.name = "Andre Winkler";
+        this.viewModel.selection = this.viewModel.values[0];
     }
 }
 </script>

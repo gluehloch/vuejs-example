@@ -2,7 +2,7 @@
     <div class="hello">
         <h1>{{ msg }}</h1>
 
-        <Register />
+        <Register v-on:update-selection="updateSelection"/>
 
         <p>
             For a guide and recipes on how to configure / customize this
@@ -95,6 +95,10 @@ import Register from  './Register.vue';
 })
 export default class HelloWorld extends Vue {
     @Prop() private msg!: string;
+
+    updateSelection(selection: any) {
+        console.log('Message from component "Register":', selection);
+    }
 }
 </script>
 

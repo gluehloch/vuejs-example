@@ -80,6 +80,7 @@ export default class Register extends Vue {
     @Watch("viewModel.selection")
     watch() {
         console.log("Selection detected.", this.viewModel.selection);
+        this.$emit('update-selection', this.viewModel.selection); // allways kebap-case for event names!!!
     }
 
     mounted() {

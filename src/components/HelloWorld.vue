@@ -2,7 +2,8 @@
     <div class="hello">
         <h1>{{ msg }}</h1>
 
-        <Register v-on:update-selection="updateSelection"/>
+        <Register :pre-select="selection" v-on:update-selection="updateSelection"/>
+        <Register :pre-select="selection"/>
 
         <p>
             For a guide and recipes on how to configure / customize this
@@ -96,8 +97,11 @@ import Register from  './Register.vue';
 export default class HelloWorld extends Vue {
     @Prop() private msg!: string;
 
+    selection: string = '';
+
     updateSelection(selection: any) {
-        console.log('Message from component "Register":', selection);
+        console.log('Message from component "Hello World":', selection, selection.key);
+        this.selection = selection.key;
     }
 }
 </script>

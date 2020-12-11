@@ -13,6 +13,9 @@
         <p>
             Selection: {{ viewModel.selection.name }}
         </p>
+        <p>
+            Outer Pre-Select {{ preSelect }}
+        </p>
     </div>
 </template>
 <script lang="ts">
@@ -37,12 +40,6 @@ class Selection {
     }
 }
 
-class SelectionModel<T> {
-    constructor(public pleaseSelect: string, public selection: T, public selectables: T[], public selected: Function) {
-    }
-
-}
-
 class ViewModel {
     name: String = '';
     firstName: String = '';
@@ -59,6 +56,7 @@ class ViewModel {
 
 @Component
 export default class Register extends Vue {
+    @Prop() private preSelect!: string;
     @Prop() private msg!: string;
 
     viewModel: ViewModel = new ViewModel();

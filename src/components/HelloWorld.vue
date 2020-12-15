@@ -2,8 +2,13 @@
     <div class="hello">
         <h1>{{ msg }}</h1>
 
+        <hr/>
+
         <Register :pre-select="selection" v-on:update-selection="updateSelection"/>
         <Register :pre-select="selection"/>
+        <SharedMessage :shared="shared" :sharedUpdateCounter="counter"/>
+
+        <hr/>
 
         <p>
             For a guide and recipes on how to configure / customize this
@@ -88,20 +93,29 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
+import { Shared } from './Shared';
 import Register from  './Register.vue';
+import SharedMessage from './SharedMessage.vue';
 
 @Component({components: {
-        Register,
+        Register, SharedMessage
     }
 })
 export default class HelloWorld extends Vue {
     @Prop() private msg!: string;
 
     selection: string = '';
+    shared: Shared = new Shared();
+    counter = 0;
 
     updateSelection(selection: any) {
-        console.log('Message from component "Hello World":', selection, selection.key);
+        console.log('HelloWorld#updateSelection :: Message from component "register component":', selection, selection.key);
         this.selection = selection.key;
+
+        this.shared.id = this.counter++;
+        this.shared.name = 'Andre Winkler was here';
+
+        console.log('HelloWorld#updateSelection :: Shared data: ', this.shared);
     }
 }
 </script>

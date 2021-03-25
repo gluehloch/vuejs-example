@@ -10,10 +10,24 @@
     </div>
 </template>
 <script lang="ts">
-import { PropType } from "vue";
-import { Component, Prop, Vue, Watch } from "vue-property-decorator";
+import { defineComponent } from 'vue';
 import { Shared } from "./Shared";
 
+export default defineComponent({
+    name: 'SharedMessage',
+    props: {
+        shared: Shared,
+        sharedUpdateCounter: Number,
+    },
+    watch: {
+        shared(newShared, oldShared) {
+            console.log('SharedMessage#watch Update of the shared data: ', newShared, oldShared);
+            // TODO ???? this.sharedUpdateCounter++;              
+        }
+    }
+});
+
+/*
 @Component
 export default class SharedMessage extends Vue {
     @Prop({type: Object as () => PropType<Shared>})
@@ -27,8 +41,8 @@ export default class SharedMessage extends Vue {
         console.log('SharedMessage#watch Update of the shared data: ', this.shared);
         this.sharedUpdateCounter++;
     }
-
 }
+*/
 
 </script>
 <style scoped>

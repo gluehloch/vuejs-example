@@ -19,7 +19,7 @@
     </div>
 </template>
 <script lang="ts">
-import { Component, Prop, Vue, Watch } from "vue-property-decorator";
+import { defineComponent } from 'vue';
 
 class Selection {
     private _message: string;
@@ -54,26 +54,27 @@ class ViewModel {
     ];
 }
 
-@Component
-export default class Register extends Vue {
-    @Prop() private preSelect!: string;
-    @Prop() private msg!: string;
-
-    viewModel: ViewModel = new ViewModel();
-
-    constructor() {
-        super();
-        console.log('Register::constructor()');
-        console.log(this.viewModel.selection.name, this.viewModel.selection.key);
-    }
-
-    /*
+export default defineComponent({
+    name: 'Register',
+    props: {
+        preSelect: String,
+        msg: String
+    },
     data() {
-        console.log('Register::data()');
-        this.viewModel = new ViewModel();
-        return this.viewModel;
-    }
-    */
+        return {
+            viewModel: new ViewModel(),
+        }
+    },
+    watch: {
+        viewModel(newViewModel, oldViewModel) {
+            console.log("Register#watch :: watch viewModel.selection.", this.viewModel.selection);
+            this.$emit('update-selection', this.viewModel.selection); // allways kebap-case for event names!!!
+        }
+    } 
+});
+
+/*
+default class Register extends Vue {
 
     @Watch("viewModel.selection")
     watch() {
@@ -87,6 +88,7 @@ export default class Register extends Vue {
         this.viewModel.selection = this.viewModel.values[0];
     }
 }
+*/
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

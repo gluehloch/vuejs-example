@@ -22,14 +22,6 @@ import { Shared } from "./Shared";
 import SharedMessage from './SharedMessage.vue';
 import Register from './Register.vue';
 
-/*
-@Component({
-    components: {
-        Register,
-        SharedMessage,
-    },
-})
-*/
 export default defineComponent({
     name: 'HelloWorld',
     components: {

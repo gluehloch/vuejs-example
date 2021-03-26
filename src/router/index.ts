@@ -1,8 +1,8 @@
-import { createRouter, createWebHistory } from 'vue-router';
-import Home from '../views/Home.vue'
-import About from '../views/About.vue'
+import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
+import Home from '../views/Home.vue';
+import About from '../views/About.vue';
 
-const routes = [
+const route1 = [
     {
         path: '/',
         name: 'Home',
@@ -19,9 +19,11 @@ const routes = [
     }
 ]
 
+// const routes2 = new Array<RouteRecordRaw>();
+
 const router = createRouter({
     history: createWebHistory(process.env.BASE_URL),
-    routes,
+    routes: route1,
 })
 
 export default router;

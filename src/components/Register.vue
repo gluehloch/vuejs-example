@@ -65,10 +65,15 @@ export default defineComponent({
             viewModel: new ViewModel(),
         }
     },
+    emits: {
+        updateSelection(payload: { selection: Selection }) {
+            return true;
+        }
+    },
     watch: {
         viewModel(newViewModel, oldViewModel) {
             console.log("Register#watch :: watch viewModel.selection.", this.viewModel.selection);
-            this.$emit('update-selection', this.viewModel.selection); // allways kebap-case for event names!!!
+            this.$emit('updateSelection', { selection: this.viewModel.selection }); // allways kebap-case for event names!!!
         }
     } 
 });

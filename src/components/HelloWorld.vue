@@ -1,16 +1,14 @@
 <template>
     <div class="hello">
         <h1>{{ msg }}</h1>
-
         <hr />
-
         <Register
             :pre-select="selection"
-            v-on:update-selection="updateSelection"
-        />
-        <Register :pre-select="selection" />
-        <SharedMessage :shared="shared" :sharedUpdateCounter="counter" />
-
+            v-on:update-selection="updateSelection" />
+        <Register
+            :pre-select="selection" />
+        <SharedMessage
+            :shared="shared" :sharedUpdateCounter="counter" />
         <hr />
     </div>
 </template>
